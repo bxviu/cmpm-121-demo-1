@@ -26,9 +26,31 @@ button.addEventListener("click", () => {
   count.innerHTML = `Number of 🦐 Interactions : ${num}`;
 });
 
-setInterval(() => {
-  button.innerHTML =
-    button.innerHTML === "AutoShromp 🦐" ? "AutoShromped 🦐" : "AutoShromp 🦐";
-  num++;
-  count.innerHTML = `Number of 🦐 Interactions : ${num}`;
-}, 1000);
+// setInterval(() => {
+//   button.innerHTML =
+//     button.innerHTML === "AutoShromp 🦐" ? "AutoShromped 🦐" : "AutoShromp 🦐";
+//   num++;
+//   count.innerHTML = `Number of 🦐 Interactions : ${num}`;
+// }, 1000);
+
+let start: number | undefined;
+
+function step() {
+  if (start === undefined) {
+    start = performance.now();
+  }
+  const elapsed = performance.now() - start;
+
+  if (elapsed > 1000) {
+    start = undefined;
+    button.innerHTML =
+      button.innerHTML === "AutoShromp 🦐"
+        ? "AutoShromped 🦐"
+        : "AutoShromp 🦐";
+    num++;
+    count.innerHTML = `Number of 🦐 Interactions : ${num}`;
+  }
+  window.requestAnimationFrame(step);
+}
+
+window.requestAnimationFrame(step);
