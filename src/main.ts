@@ -23,5 +23,12 @@ button.addEventListener("click", () => {
   button.innerHTML =
     button.innerHTML === "Shromp 🦐" ? "Shrompled 🦐" : "Shromp 🦐";
   num++;
-  count.innerHTML = `Number of 🦐 Interaction : ${num}`;
+  count.innerHTML = `Number of 🦐 Interactions : ${num}`;
 });
+
+setInterval(() => {
+  button.innerHTML =
+    button.innerHTML === "AutoShromp 🦐" ? "AutoShromped 🦐" : "AutoShromp 🦐";
+  num++;
+  count.innerHTML = `Number of 🦐 Interactions : ${num}`;
+}, 1000);
