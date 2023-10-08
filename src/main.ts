@@ -26,13 +26,6 @@ button.addEventListener("click", () => {
   count.innerHTML = `Number of 🦐 Interactions : ${num}`;
 });
 
-// setInterval(() => {
-//   button.innerHTML =
-//     button.innerHTML === "AutoShromp 🦐" ? "AutoShromped 🦐" : "AutoShromp 🦐";
-//   num++;
-//   count.innerHTML = `Number of 🦐 Interactions : ${num}`;
-// }, 1000);
-
 let start: number | undefined;
 
 function step() {
