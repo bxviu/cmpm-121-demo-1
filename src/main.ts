@@ -12,13 +12,34 @@ app.append(header);
 
 let num: number = 0;
 const count = document.createElement("div");
-count.innerHTML = `Number of 🐚 : ${num}`;
+// count.innerHTML = `Number of 🐚 : ${num}`;
 app.append(count);
 
-let crabHelpers: number = 0;
-const crabDisplay = document.createElement("div");
-crabDisplay.innerHTML = `Number of 🦀 : ${crabHelpers}`;
-app.append(crabDisplay);
+interface autoclickers {
+  cost: number;
+  units: number;
+  amount: number;
+}
+
+class crab implements autoclickers {
+  cost: number;
+  units: number;
+  amount: number;
+  disabled: boolean;
+  name: string;
+  constructor() {
+    this.cost = 10;
+    this.units = 0.1;
+    this.amount = 0;
+    this.disabled = true;
+    this.name = "Crab";
+  }
+}
+
+const crabData = new crab();
+const growthRate = document.createElement("div");
+// growthRate.innerHTML = `Number of 🦀 : ${crabData.amount}`;
+app.append(growthRate);
 
 const button = document.createElement("button");
 button.innerHTML = "Shromp 🦐";
@@ -36,13 +57,12 @@ crabHelper.innerHTML = "Crab Helper 🦀";
 app.append(crabHelper);
 
 crabHelper.addEventListener("click", () => {
-  if (num < 10) {
+  if (num < crabData.cost) {
     return;
   }
-  crabHelpers++;
-  num -= 10;
-  count.innerHTML = `Number of 🐚 : ${num}`;
-  crabDisplay.innerHTML = `Number of 🦀 : ${crabHelpers}`;
+  crabData.amount++;
+  num -= crabData.cost;
+  updateUI();
 });
 
 let start: number | undefined;
@@ -55,19 +75,19 @@ function step() {
 
   if (elapsed > 1000) {
     start = undefined;
-    if (crabHelpers > 0) {
+    if (crabData.amount > 0) {
       button.innerHTML =
         button.innerHTML === "AutoShromp 🦐"
           ? "AutoShromped 🦐"
           : "AutoShromp 🦐";
-      num += crabHelpers;
-      count.innerHTML = `Number of 🐚 : ${num}`;
+      num += crabData.units;
+      updateUI();
     }
   }
 
   if (!crabHelper.disabled && num < 10) {
     crabHelper.disabled = true;
-  } else {
+  } else if (crabHelper.disabled && num >= 10) {
     crabHelper.disabled = false;
   }
 
@@ -75,3 +95,9 @@ function step() {
 }
 
 window.requestAnimationFrame(step);
+
+function updateUI() {
+  // format number to 2 decimal places
+  count.innerHTML = `Number of 🐚 : ${num.toFixed(1)}`;
+  growthRate.innerHTML = `Growth Rate: ${crabData.amount}`;
+}
