@@ -66,6 +66,7 @@ crabHelper.addEventListener("click", () => {
   }
   crabData.amount++;
   num -= crabData.cost;
+  crabData.cost = crabData.cost * 1.15;
   updateUI();
 });
 
@@ -97,6 +98,7 @@ crabHelper2.addEventListener("click", () => {
   }
   crabData2.amount++;
   num -= crabData2.cost;
+  crabData2.cost = crabData2.cost * 1.15;
   updateUI();
 });
 
@@ -128,6 +130,7 @@ crabHelper3.addEventListener("click", () => {
   }
   crabData3.amount++;
   num -= crabData3.cost;
+  crabData3.cost = crabData3.cost * 1.15;
   updateUI();
 });
 
@@ -173,9 +176,15 @@ window.requestAnimationFrame(step);
 
 function updateUI() {
   // format number to 1 decimal place
-  count.innerHTML = `Number of 🐚 : ${num.toFixed(1)}`;
+  count.innerHTML = `Number of 🐚 : ${num.toFixed(2)}`;
   growthRate.innerHTML = `Growth Rate: ${calculateGrowthRate().toFixed(1)}/sec`;
-  autoclickerDisplay.innerHTML = `Crab Helper 1: ${crabData.amount} | Crab Helper 2: ${crabData2.amount} | Crab Helper 3: ${crabData3.amount}`;
+  autoclickerDisplay.innerHTML = `Crab Helper 1: ${
+    crabData.amount
+  }, Cost: ${crabData.cost.toFixed(2)} | Crab Helper 2: ${
+    crabData2.amount
+  }, Cost: ${crabData2.cost.toFixed(2)} | Crab Helper 3: ${
+    crabData3.amount
+  }, Cost: ${crabData3.cost.toFixed(2)}`;
 }
 
 function calculateGrowthRate() {
