@@ -1,36 +1,44 @@
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
+const upgradeMenu: HTMLDivElement = document.createElement("div");
+upgradeMenu.id = "upgradeMenu";
+const stats: HTMLDivElement = document.createElement("div");
+stats.id = "stats";
 
-const gameName = "🦐🦐🦐 Shrimple Game 🦐🦐🦐";
+const game: HTMLDivElement = document.createElement("div");
+game.id = "game";
+
+const gameName = "Sand Collector 🏖️";
 
 document.title = gameName;
 
 const header = document.createElement("h1");
+header.id = "game-title";
 header.innerHTML = gameName;
-app.append(header);
+app.append(header, game);
+
+game.append(upgradeMenu, stats);
 
 let num: number = 0;
 const count = document.createElement("div");
-app.append(count);
+stats.append(count);
 
 const autoclickerDisplay = document.createElement("div");
-app.append(autoclickerDisplay);
+stats.append(autoclickerDisplay);
 
 //manual clicking
 const button = document.createElement("button");
-button.innerHTML = "Shromp 🦐";
-app.append(button);
+button.innerHTML = "Collect Sand ⛱️";
+stats.append(button);
 
 button.addEventListener("click", () => {
-  button.innerHTML =
-    button.innerHTML === "Shromp 🦐" ? "Shrompled 🦐" : "Shromp 🦐";
   num++;
   updateUI();
 });
 
 const growthRate = document.createElement("div");
-app.append(growthRate);
+stats.append(growthRate);
 
 interface autoclickers {
   cost: number;
@@ -38,99 +46,127 @@ interface autoclickers {
   amount: number;
 }
 
-// crab
-class crab implements autoclickers {
+// handClicker
+class handClicker implements autoclickers {
   cost: number;
   units: number;
   amount: number;
   disabled: boolean;
   name: string;
+  description: string;
   constructor() {
     this.cost = 10;
     this.units = 0.1;
     this.amount = 0;
     this.disabled = true;
-    this.name = "Crab Helper 🦀";
+    this.name = "Hands 🤚";
+    this.description =
+      "Much better than the pair of tweezers you originally used.";
   }
 }
 
-const crabData = new crab();
+const handData = new handClicker();
 
-const crabHelper = document.createElement("button");
-crabHelper.innerHTML = crabData.name;
-app.append(crabHelper);
+const handButton = document.createElement("button");
+handButton.innerHTML = handData.name + "<br/>" + handData.description;
+const handContainer = document.createElement("div");
+const handDisplay = document.createElement("div");
+handDisplay.innerHTML = `Cost: ${handData.cost.toFixed(2)} | Amount: ${
+  handData.amount
+}`;
+upgradeMenu.append(handContainer);
+handContainer.append(handButton);
+handContainer.append(handDisplay);
 
-crabHelper.addEventListener("click", () => {
-  if (num < crabData.cost) {
+handButton.addEventListener("click", () => {
+  if (num < handData.cost) {
     return;
   }
-  crabData.amount++;
-  num -= crabData.cost;
-  crabData.cost = crabData.cost * 1.15;
+  handData.amount++;
+  num -= handData.cost;
+  handData.cost = handData.cost * 1.15;
   updateUI();
 });
 
 //item 2
-class crab2 implements autoclickers {
+class spoonClicker implements autoclickers {
   cost: number;
   units: number;
   amount: number;
   disabled: boolean;
   name: string;
+  description: string;
   constructor() {
     this.cost = 100;
     this.units = 2;
     this.amount = 0;
     this.disabled = true;
-    this.name = "Crab Helper 2🦀";
+    this.name = "Spoon 🥄";
+    this.description = "A spoon that can dig up sand.";
   }
 }
 
-const crabData2 = new crab2();
+const spoonData = new spoonClicker();
 
-const crabHelper2 = document.createElement("button");
-crabHelper2.innerHTML = crabData2.name;
-app.append(crabHelper2);
+const spoonButton = document.createElement("button");
+spoonButton.innerHTML = spoonData.name + "<br/>" + spoonData.description;
+const spoonContainer = document.createElement("div");
+const spoonDisplay = document.createElement("div");
+spoonDisplay.innerHTML = `Cost: ${spoonData.cost.toFixed(2)} | Amount: ${
+  spoonData.amount
+}`;
+upgradeMenu.append(spoonContainer);
+spoonContainer.append(spoonButton);
+spoonContainer.append(spoonDisplay);
 
-crabHelper2.addEventListener("click", () => {
-  if (num < crabData2.cost) {
+spoonButton.addEventListener("click", () => {
+  if (num < spoonData.cost) {
     return;
   }
-  crabData2.amount++;
-  num -= crabData2.cost;
-  crabData2.cost = crabData2.cost * 1.15;
+  spoonData.amount++;
+  num -= spoonData.cost;
+  spoonData.cost = spoonData.cost * 1.15;
   updateUI();
 });
 
 //item 3
-class crab3 implements autoclickers {
+class shovelClicker implements autoclickers {
   cost: number;
   units: number;
   amount: number;
   disabled: boolean;
   name: string;
+  description: string;
   constructor() {
     this.cost = 1000;
     this.units = 50;
     this.amount = 0;
     this.disabled = true;
-    this.name = "Crab Helper 3🦀";
+    this.name = "Shovel ⚒️";
+    this.description = "A shovel that can collect sand.";
   }
 }
 
-const crabData3 = new crab3();
+const shovelData = new shovelClicker();
 
-const crabHelper3 = document.createElement("button");
-crabHelper3.innerHTML = crabData3.name;
-app.append(crabHelper3);
+const shovelButton = document.createElement("button");
+shovelButton.innerHTML = shovelData.name + "<br/>" + shovelData.description;
+const shovelContainer = document.createElement("div");
+const shovelDisplay = document.createElement("div");
+shovelDisplay.innerHTML = `Cost: ${shovelData.cost.toFixed(2)} | Amount: ${
+  shovelData.amount
+}`;
+upgradeMenu.append(shovelContainer);
+shovelContainer.append(shovelButton);
+shovelContainer.append(shovelDisplay);
 
-crabHelper3.addEventListener("click", () => {
-  if (num < crabData3.cost) {
+shovelButton.addEventListener("click", () => {
+  if (num < shovelData.cost) {
     return;
   }
-  crabData3.amount++;
-  num -= crabData3.cost;
-  crabData3.cost = crabData3.cost * 1.15;
+  shovelData.amount++;
+  num -= shovelData.cost;
+  shovelData.cost = shovelData.cost * 1.15;
   updateUI();
 });
 
@@ -144,28 +180,28 @@ function step() {
 
   if (elapsed > 1000) {
     start = undefined;
-    if (crabData.amount || crabData2.amount || crabData3.amount) {
+    if (handData.amount || spoonData.amount || shovelData.amount) {
       num += calculateGrowthRate();
       updateUI();
     }
   }
 
-  if (!crabHelper.disabled && num < crabData.cost) {
-    crabHelper.disabled = true;
-  } else if (crabHelper.disabled && num >= crabData.cost) {
-    crabHelper.disabled = false;
+  if (!handButton.disabled && num < handData.cost) {
+    handButton.disabled = true;
+  } else if (handButton.disabled && num >= handData.cost) {
+    handButton.disabled = false;
   }
 
-  if (!crabHelper2.disabled && num < crabData2.cost) {
-    crabHelper2.disabled = true;
-  } else if (crabHelper2.disabled && num >= crabData2.cost) {
-    crabHelper2.disabled = false;
+  if (!spoonButton.disabled && num < spoonData.cost) {
+    spoonButton.disabled = true;
+  } else if (spoonButton.disabled && num >= spoonData.cost) {
+    spoonButton.disabled = false;
   }
 
-  if (!crabHelper3.disabled && num < crabData3.cost) {
-    crabHelper3.disabled = true;
-  } else if (crabHelper3.disabled && num >= crabData3.cost) {
-    crabHelper3.disabled = false;
+  if (!shovelButton.disabled && num < shovelData.cost) {
+    shovelButton.disabled = true;
+  } else if (shovelButton.disabled && num >= shovelData.cost) {
+    shovelButton.disabled = false;
   }
 
   window.requestAnimationFrame(step);
@@ -176,21 +212,23 @@ window.requestAnimationFrame(step);
 
 function updateUI() {
   // format number to 1 decimal place
-  count.innerHTML = `Number of 🐚 : ${num.toFixed(2)}`;
+  count.innerHTML = `Grains of Sand 🏝️: ${num.toFixed(2)}`;
   growthRate.innerHTML = `Growth Rate: ${calculateGrowthRate().toFixed(1)}/sec`;
-  autoclickerDisplay.innerHTML = `Crab Helper 1: ${
-    crabData.amount
-  }, Cost: ${crabData.cost.toFixed(2)} | Crab Helper 2: ${
-    crabData2.amount
-  }, Cost: ${crabData2.cost.toFixed(2)} | Crab Helper 3: ${
-    crabData3.amount
-  }, Cost: ${crabData3.cost.toFixed(2)}`;
+  handDisplay.innerHTML = `Cost: ${handData.cost.toFixed(2)}<br/>Amount: ${
+    handData.amount
+  }`;
+  spoonDisplay.innerHTML = `Cost: ${spoonData.cost.toFixed(2)}<br/>Amount: ${
+    spoonData.amount
+  }`;
+  shovelDisplay.innerHTML = `Cost: ${shovelData.cost.toFixed(2)}<br/>Amount: ${
+    shovelData.amount
+  }`;
 }
 
 function calculateGrowthRate() {
   return (
-    crabData.amount * crabData.units +
-    crabData2.amount * crabData2.units +
-    crabData3.amount * crabData3.units
+    handData.amount * handData.units +
+    spoonData.amount * spoonData.units +
+    shovelData.amount * shovelData.units
   );
 }
