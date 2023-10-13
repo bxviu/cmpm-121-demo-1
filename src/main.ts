@@ -83,9 +83,7 @@ availableItems.forEach((item) => {
   item.htmlData.button.innerHTML = item.name + "<br/>" + item.description;
   item.htmlData.container = document.createElement("div");
   item.htmlData.display = document.createElement("div");
-  item.htmlData.display.innerHTML = `Cost: ${item.cost.toFixed(2)} | Amount: ${
-    item.amount
-  }`;
+
   upgradeMenu.append(item.htmlData.container);
   item.htmlData.container.append(item.htmlData.button);
   item.htmlData.container.append(item.htmlData.display);
@@ -101,47 +99,45 @@ availableItems.forEach((item) => {
   });
 });
 
-let start: number | undefined;
+let lastMillis = 0;
 
-function step() {
-  if (start === undefined) {
-    start = performance.now();
-  }
-  const elapsed = performance.now() - start;
-
-  if (elapsed > 1000) {
-    start = undefined;
-    availableItems.forEach((item) => {
-      if (item.amount > 0) {
-        num += item.amount * item.rate;
-      }
-    });
-    updateUI();
-  }
-
+function tick(millis: number) {
+  const delta = millis - lastMillis;
+  lastMillis = millis;
+  console.log(delta / 1000);
   availableItems.forEach((item) => {
-    const button = item.htmlData!.button!;
-    if (!button.disabled && num < item.cost) {
-      button.disabled = true;
-    } else if (button.disabled && num >= item.cost) {
-      button.disabled = false;
-    }
+    incrementNum(item, delta);
+    checkButton(item, item.htmlData!.button!);
   });
 
-  window.requestAnimationFrame(step);
+  updateUI();
+  requestAnimationFrame(tick);
 }
 
-updateUI();
-window.requestAnimationFrame(step);
+requestAnimationFrame(tick);
+
+function incrementNum(item: Item, delta: number) {
+  if (item.amount > 0) {
+    num += item.amount * item.rate * (delta / 1000);
+  }
+}
+
+function checkButton(item: Item, button: HTMLButtonElement) {
+  if (num < item.cost) {
+    button.disabled = true;
+  } else if (button.disabled && num >= item.cost) {
+    button.disabled = false;
+  }
+}
 
 function updateUI() {
   count.innerHTML = `Grains of Sand 🏝️: ${num.toFixed(2)}`;
   growthRate.innerHTML = `Growth Rate: ${calculateGrowthRate().toFixed(1)}/sec`;
 
   availableItems.forEach((item) => {
-    item.htmlData!.display!.innerHTML = `Cost: ${item.cost.toFixed(
-      2,
-    )}<br/>Amount: ${item.amount}`;
+    item.htmlData!.display!.innerHTML = `Rate Increase: ${
+      item.rate
+    }<br/>Cost: ${item.cost.toFixed(2)}<br/>Amount: ${item.amount}`;
   });
 }
 
