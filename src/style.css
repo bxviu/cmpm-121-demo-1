@@ -79,7 +79,8 @@ button:active {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+
+    background: linear-gradient(#d9c6b2 60%, #54b9e4);
   }
   a:hover {
     color: #747bff;
@@ -93,6 +94,8 @@ button:active {
   padding: 2rem;
   flex: 1;
   overflow-y: scroll;
+  scrollbar-color: red orange;
+  scrollbar-width: thin;
   /* max-width: 50%; */
 }
 
