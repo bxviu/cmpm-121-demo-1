@@ -21,7 +21,7 @@ app.append(header, game);
 game.append(upgradeMenu, stats);
 
 let num: number = 0;
-const count = document.createElement("div");
+const count = document.createElement("h2");
 stats.append(count);
 
 const autoclickerDisplay = document.createElement("div");
@@ -29,6 +29,7 @@ stats.append(autoclickerDisplay);
 
 //manual clicking
 const collectButton = document.createElement("button");
+collectButton.id = "largeButton";
 collectButton.innerHTML = "Collect Sand ⛱️";
 stats.append(collectButton);
 
@@ -37,7 +38,7 @@ collectButton.addEventListener("click", () => {
   updateUI();
 });
 
-const growthRate = document.createElement("div");
+const growthRate = document.createElement("h3");
 stats.append(growthRate);
 
 interface Item {
@@ -62,18 +63,33 @@ const availableItems: Item[] = [
     description: "Much better than the pair of tweezers you originally used.",
   },
   {
+    name: "Fork and Knife🍴",
+    cost: 20,
+    rate: 1.2,
+    amount: 0,
+    description:
+      "A spoon would be better... The sand just falls off these ones!",
+  },
+  {
     name: "Spoon 🥄",
     cost: 100,
     rate: 2,
     amount: 0,
-    description: "A spoon that can dig up sand.",
+    description: "An improvement over the previous utensils.",
   },
   {
     name: "Shovel ⚒️",
     cost: 1000,
     rate: 50,
     amount: 0,
-    description: "A shovel that can collect sand.",
+    description: "This can dig up way more sand than a spoon.",
+  },
+  {
+    name: "Bucket 🪣",
+    cost: 10000,
+    rate: 300,
+    amount: 0,
+    description: "This can collect large amounts of sand.",
   },
 ];
 

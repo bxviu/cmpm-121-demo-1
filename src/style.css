@@ -76,6 +76,11 @@ button:active {
     inset 2px 2px 3px rgba(0, 0, 0, 0.6);
 }
 
+#largeButton {
+  font-size: 50px;
+  padding: 10px 20px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -93,10 +98,10 @@ button:active {
 #upgradeMenu {
   padding: 2rem;
   flex: 1;
-  overflow-y: scroll;
   scrollbar-color: red orange;
   scrollbar-width: thin;
-  /* max-width: 50%; */
+  height: 350px;
+  overflow: auto;
 }
 
 #stats {
